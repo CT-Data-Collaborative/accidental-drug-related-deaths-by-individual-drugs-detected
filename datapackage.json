@@ -1,0 +1,400 @@
+{
+  "name": "accidental-drug-related-deaths-by-individual-drugs-detected",
+  "datapackage_version": "1.0-beta.18",
+  "title": "Accidental Drug Related Deaths by Individual Drugs Detected",
+  "description": "Accidental Drug Related Deaths by Individual Drugs Detected reports totals and subtotals of deaths attributable to accidental drug overdoses by place of death as reported by the Connecticut Office of the Chief Medical Examiner. Deaths are by grouped age, race, ethnicity, and gender and by the individuals drugs detected post-death. The companion dataset, Accidental Drug Related Deaths by Drug Type, reports subtotals by various aggregated categories.",
+  "version": "1.0",
+  "licenses": [{
+    "url": "http://opendatacommons.org/licenses/pddl/",
+    "name": "Open Data Commons Public Domain",
+    "version": "1.0",
+    "id": "odc-pddl"
+  }],
+  "sources": [{
+    "name": "uscensus",
+    "web": ""
+  }],
+  "author":[{
+    "name": "Jenna Daly",
+    "email": "jdaly@ctdata.org",
+    "web": "http://ctdata.org"
+  }],
+  "contributor": [],
+  "resources": [{
+    "path": "data/accidental-drug-related-deaths-by-individual-drugs-detected_2012-2016.csv",
+    "format": "csv",
+    "schema": {
+      "fields": [{
+          "name": "Town",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "FIPS",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Year",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Age",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": [
+              "Under 21 years", 
+              "21 to 45 years", 
+              "46 to 60 years", 
+              "61 years and over", 
+              "Total"
+            ]
+         }
+        }, {      
+          "name": "Gender",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": [
+              "Female", 
+              "Male", 
+              "Total"
+            ]
+         }
+        }, {    
+          "name": "Race",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": [
+              "White", 
+              "Black", 
+              "Other", 
+              "Total"
+            ]
+         }
+        }, {  
+          "name": "Ethnicity",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": [
+              "Not Hispanic", 
+              "Hispanic", 
+              "Total"
+            ]
+         }
+        }, {  
+          "name": "Drug Type",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": [
+              "Total",  
+              "Fentanyl",  
+              "Heroin",  
+              "Hydro-codeine",  
+              "Methadone",  
+              "Oxycodone",  
+              "Oxymorphone",  
+              "Tramadol",  
+              "Amphetamine", 
+              "Benzodiazepine",  
+              "Cocaine",  
+              "Ethanol",  
+              "Other"
+            ]
+          }
+        }, {  
+          "name": "Measure Type",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": ["Number"]
+         }
+        }, {
+          "name": "Variable",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+                "enum": ["Accidental Drug Related Deaths"]
+                }
+        }, {
+          "name": "Value",
+          "type": "number",
+          "dimension": false
+        }]
+      }
+    }
+  ],
+  "last_modified": "09/01/2017",
+  "ckan_extras": {
+    "full_description": {
+      "ckan_name": "Full Description",
+      "value": "<p>Accidental Drug Related Deaths by Individual Drugs Detected reports totals and subtotals of deaths attributable to accidental drug overdoses by place of death as reported by the Connecticut Office of the Chief Medical Examiner. Deaths are grouped by age, race, ethnicity, and gender and by the individuals drugs detected post-death. The compainion dataset, Accidental Drug Related Deaths by Drug Type, reports subtotals by various aggregated categories. </p><p>Individual deaths are categorized according to the presence of specific substances and also according to the presence of any opioid substance. As part of the data cleaning process, CTData evaluated the accuracy of the 'Any Opioid' category and manually adjusted some records that were not properly flagged as being an opioid-involved death. Therefore our totals may not match totals generated from the raw data available from the Office of the Chief Medical Examiner. </p><p>The Office of the Chief Medical Examiner annotates individual deaths with any and all substances detected during post-death investigation. Therefore, individual deaths can be counted as involving multiple substances. Here we report town-level totals and subtotals by the individual substances detected and reported. </p><p>Individual deaths frequentally involved multiple substances. The subtotals we report cannot be summed without counting some individual deaths multiple times. For example, deaths involving Heroin may also involve Cocaine. Selecting Heroin and Cocaine will report total deaths involving each drug and each totals may include individual deaths that involved both substances. Summing these two totals would result in double-counting deaths. </p><p>The raw data provided by the Office of the Chief Medical Examiner also recorded a small number of deaths as 'Morphine (non heroin)'. The 'non heroin' modifier introduces ambiguity in interpreting these deaths. Raw morphine is often transformed into heroin via a crude acetylation. As a result, it is not clear if these values are intended to indicate deaths involving raw morphine (e.g. non- transformed) or if they indicate deaths involving morphine but not heroin. These cases were recoded as 'Other' for this dataset. </p> ",
+      "type": "string"
+    },
+    "suppression": {
+      "ckan_name": "Suppression",
+      "value": "",
+      "type": "string"
+    },
+    "technical_notes": {
+      "ckan_name": "Technical Notes",
+      "value": "",
+      "type": "string"
+    },
+    "socrata": {
+      "ckan_name": "Socrata",
+      "value": "True",
+      "type": "string"
+    },
+    "socrata_url": {
+      "ckan_name": "Socrata Dataset URL",
+      "value": "https://data.ct.gov/Health-and-Human-Services/Accidental-Drug-Related-Deaths-2012-2016/rybz-nyjw",
+      "type": "string"
+    },
+    "domain": {
+      "ckan_name": "Domain",
+      "value": "Health",
+      "type": "string"
+    },
+    "subdomain": {
+      "ckan_name": "Subdomain",
+      "value": "Substance Abuse",
+      "type": "string"
+    },
+    "geography": {
+      "ckan_name": "Geography",
+      "value": "Town",
+      "type": "string",
+      "constraints": {"enum": ["Town", "County", "Town/County", "District", "Other"]}
+    },
+    "frequency": {
+      "ckan_name": "Frequency",
+      "value": "Annual",
+      "type": "string"
+    },
+    "years_in_catalog": {
+      "ckan_name": "Years in Catalog",
+      "value": ["2012", "2013", "2014", "2015", "2016"],
+      "type": "array"
+    },
+    "latest_year": {
+      "ckan_name": "Latest Year Available",
+      "value": "2016",
+      "type": "string"
+    },
+    "disabled_views": {
+      "ckan_name": "Disabled Views",
+      "value": [],
+      "type": "array",
+      "constraints": {"enum": ["map", "table", "bar", "line"]}
+    },
+    "units": {
+      "ckan_name": "Units",
+      "value": {
+        "Number": "",
+        "Percent": "%"
+      }
+    },
+    "expected_number_of_geographies": {
+		  "ckan_name": "Expected Number of Unique Geographies",
+		  "value": 170,
+		  "type": "string"
+		},     
+    "default": {      
+      "ckan_name": "Default",
+			"value": {
+		 		"Town": "Connecticut",
+		 		"Year": ["2012", "2013", "2014", "2015", "2016"],
+		 		"Age": "Total", 
+		 		"Gender": "Total", 
+		 		"Race": "Total", 	
+		 		"Ethnicity": "Total", 		 		
+		 		"Drug Type": "Total", 				 		
+		 		"Measure Type": "Number", 
+		 		"Variable": "Accidental Drug Related Deaths"
+			},
+		  	"type": "object"
+    } 
+  },
+  "spot_checks": [
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Connecticut",
+        "Year":	"2012",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "Under 21 years", 
+        "Gender": "Female", 
+        "Race": "White", 	
+        "Ethnicity": "Total", 		 		
+        "Drug Type": "Total" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 2
+      } 
+    },   
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "New Britain",
+        "Year":	"2013",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "21 to 45 years", 
+        "Gender": "Male", 
+        "Race": "White", 	
+        "Ethnicity": "Not Hispanic", 		 		
+        "Drug Type": "Heroin" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 2
+      } 
+    },      
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Waterbury",
+        "Year":	"2014",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "46 to 60 years", 
+        "Gender": "Female", 
+        "Race": "Total", 	
+        "Ethnicity": "Not Hispanic", 		 		
+        "Drug Type": "Benzodiazepine" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 3
+      } 
+    },   
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Hartford",
+        "Year":	"2015",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "61 years and over", 
+        "Gender": "Total", 
+        "Race": "Other", 	
+        "Ethnicity": "Total", 		 		
+        "Drug Type": "Other" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 0
+      } 
+    },       
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "New Haven",
+        "Year":	"2016",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "Total", 
+        "Gender": "Total", 
+        "Race": "Black", 	
+        "Ethnicity": "Not Hispanic", 		 		
+        "Drug Type": "Cocaine" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 11
+      } 
+    },  
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Willington",
+        "Year":	"2012",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "Under 21 years", 
+        "Gender": "Male", 
+        "Race": "White", 	
+        "Ethnicity": "Total", 		 		
+        "Drug Type": "Oxycodone" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 1
+      } 
+    },       
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Newtown",
+        "Year":	"2013",
+        "Variable":	"Accidental Drug Related Deaths",
+        "Measure Type":	"Number",
+        "Age": "46 to 60 years", 
+        "Gender": "Female", 
+        "Race": "Total", 	
+        "Ethnicity": "Hispanic", 		 		
+        "Drug Type": "Fentanyl" 
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 0
+      } 
+    }
+  ],
+  "dimension_groups": [
+    {
+      "Age": [
+        "Under 21 years", 
+        "21 to 45 years", 
+        "46 to 60 years", 
+        "61 years and over", 
+        "Total"
+      ],
+      "Gender": [
+        "Female", 
+        "Male", 
+        "Total"
+      ],
+      "Race": [
+        "White", 
+        "Black", 
+        "Other", 
+        "Total"
+      ],
+      "Ethnicity": [
+        "Not Hispanic", 
+        "Hispanic", 
+        "Total"
+      ],      
+      "Drug Type": [
+        "Total",  
+        "Fentanyl",  
+        "Heroin",  
+        "Hydro-codeine",  
+        "Methadone",  
+        "Oxycodone",  
+        "Oxymorphone",  
+        "Tramadol",  
+        "Amphetamine", 
+        "Benzodiazepine",  
+        "Cocaine",  
+        "Ethanol",  
+        "Other"
+      ],
+      "Measure Type": ["Number"], 
+      "Variable": ["Accidental Drug Related Deaths"]     
+    }
+  ]
+}
