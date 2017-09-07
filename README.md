@@ -1,7 +1,5 @@
 Accidental Drug Related Deaths by Individual Drugs Detected
 
-[![Build Status](https://travis-ci.org/CT-Data-Collaborative/accidental-drug-related-deaths-by-individual-drugs-detected.svg?branch=master)](https://travis-ci.org/CT-Data-Collaborative/accidental-drug-related-deaths-by-individual-drugs-detected)
-
 Accidental Drug Related Deaths by Individual Drugs Detected reports totals and subtotals of deaths attributable to accidental drug overdoses by place of death as reported by the Connecticut Office of the Chief Medical Examiner. Deaths are by grouped age, race, ethnicity, and gender and by the individuals drugs detected post-death. The companion dataset, Accidental Drug Related Deaths by Drug Type, reports subtotals by various aggregated categories.
 
 Data Source: <https://data.ct.gov/Health-and-Human-Services/Accidental-Drug-Related-Deaths-2012-2016/rybz-nyjw>
