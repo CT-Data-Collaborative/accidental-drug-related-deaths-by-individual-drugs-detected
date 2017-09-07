@@ -116,8 +116,10 @@
           "type": "string",
           "dimension": true,
           "constraints": {
-                "enum": ["Accidental Drug Related Deaths"]
-                }
+            "enum": [
+              "Accidental Drug Related Deaths"
+            ]
+          }
         }, {
           "name": "Value",
           "type": "number",
