@@ -257,7 +257,7 @@ drug_data <- transform(drug_data, Age = factor(Age, levels = c("Under 21 years",
 #Order and sort columns         
 drug_data <- drug_data %>% 
   select(Town, FIPS, Year, Age, Gender, Race, Ethnicity, `Drug Type`, `Measure Type`, Variable, Value) %>% 
-  arrange(Town, Year, Age, Gender, Race, Ethnicity, `Drug Type`)
+  arrange(desc(Value))
 
 # Write to File
 write.table(
@@ -268,49 +268,3 @@ write.table(
   na = "-9999"
 )
 
-x2012 <- drug_data[(drug_data$Year == "2012"),]
-x2013 <- drug_data[(drug_data$Year == "2013"),]
-x2014 <- drug_data[(drug_data$Year == "2014"),]
-x2015 <- drug_data[(drug_data$Year == "2015"),]
-x2016 <- drug_data[(drug_data$Year == "2016"),]
-
-# Write indiv years to File
-write.table(
-  x2012,
-  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2012.csv"),
-  sep = ",",
-  row.names = F,
-  na = "-9999"
-)
-
-write.table(
-  x2013,
-  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2013.csv"),
-  sep = ",",
-  row.names = F,
-  na = "-9999"
-)
-
-write.table(
-  x2014,
-  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2014.csv"),
-  sep = ",",
-  row.names = F,
-  na = "-9999"
-)
-
-write.table(
-  x2015,
-  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2015.csv"),
-  sep = ",",
-  row.names = F,
-  na = "-9999"
-)
-
-write.table(
-  x2016,
-  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2016.csv"),
-  sep = ",",
-  row.names = F,
-  na = "-9999"
-)
