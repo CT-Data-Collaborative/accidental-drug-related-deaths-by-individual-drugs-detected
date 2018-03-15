@@ -16,9 +16,13 @@ raw_location <- grep("raw", sub_folders, value=T)
 path_to_raw_data <- (paste0(getwd(), "/", raw_location))
 data_location <- grep("data$", sub_folders, value=T)
 path_to_data <- (paste0(getwd(), "/", data_location))
+#Find latest year
 indiv_drug <- dir(path_to_raw_data, recursive=T, pattern = "Drug") 
+data_yr <- as.numeric(gsub("[^\\d]+", "", indiv_drug, perl=TRUE))
+max_year <- substr(max(data_yr), 5, 8)
+latest_data <- grep(max_year, indiv_drug, value =T)
 
-indiv_drug_df <- read.csv(paste0(path_to_raw_data, "/", indiv_drug), stringsAsFactors = FALSE, header=T, check.names = F) 
+indiv_drug_df <- read.csv(paste0(path_to_raw_data, "/", latest_data), stringsAsFactors = FALSE, header=T, check.names = F) 
 
 #Take care of known issues in raw data file
 ##Unmarked Causes by Case Number
@@ -75,6 +79,11 @@ indiv_drug_df <- indiv_drug_df %>%
 source('./scripts/ctnamecleaner.R')
 indiv_drug_df <- ctnamecleaner(Town, indiv_drug_df)
 
+#Check to see if there were any "no matches", (is.na(real.town.name)), assign real town name if so. 
+#Only two for now, easier to fix them indiv, if many towns don't match, create supplemental xwalk file
+indiv_drug_df$real.town.name[indiv_drug_df$Town == "Vernon-Rockville"] <- "Vernon"
+indiv_drug_df$real.town.name[indiv_drug_df$Town == "06340"] <- "Groton"
+
 indiv_drug_df$Town <- NULL
 indiv_drug_df <- indiv_drug_df %>% rename(Town = real.town.name)
 
@@ -102,7 +111,24 @@ indiv_drug_df$Age[which(indiv_drug_df$num.age > 60)] <- "61 years and over"
 # Remove working column
 indiv_drug_df$num.age <- NULL
 
-indiv_drug_df$Heroin[indiv_drug_df$Heroin == "y"] <- "Y"
+#Correct drug columns
+#apply to all the following columns: 
+fix_drugs <- c("Heroin", "Cocaine", "Fentanyl", "Oxycodone", 
+               "Oxymorphone", "EtOH", "Hydrocodone", "Benzodiazepine",
+               "Methadone", "Amphet", "Tramad", "Morphine (not heroin)")
+#convert " " to ""
+indiv_drug_df[fix_drugs] <- lapply(indiv_drug_df[fix_drugs], function(x) replace(x,x == " ", "") )
+
+#if not "", convert to Y
+indiv_drug_df[fix_drugs] <- lapply(indiv_drug_df[fix_drugs], function(x) replace(x,x != "", "Y") )
+
+# "y" 
+# "Y (PTCH)" 
+# "Y POPS" 
+# "NO RX BUT STRAWS" 
+# "STOLE MEDS" 
+# "PCP neg" 
+# " Y"
 
 ################################################################################################################
 #Now start to aggregate totals
@@ -112,9 +138,9 @@ raw <- as.data.table(indiv_drug_df)
 raw[
   ,
   listedDrugs := paste(
-    Heroin, Cocaine, Fentanyl, Oxycodone, Oxymorphone, EtOH, `Hydro-codeine`, Benzodiazepine, 
+    Heroin, Cocaine, Fentanyl, Oxycodone, Oxymorphone, EtOH, Hydrocodone, Benzodiazepine, 
     Methadone, Amphet, Tramad, `Morphine (not heroin)`, sep = ""),
-  by = list(Heroin, Cocaine, Fentanyl, Oxycodone, Oxymorphone, EtOH, `Hydro-codeine`, Benzodiazepine, 
+  by = list(Heroin, Cocaine, Fentanyl, Oxycodone, Oxymorphone, EtOH, Hydrocodone, Benzodiazepine, 
             Methadone, Amphet, Tramad, `Morphine (not heroin)`)
   ]
 
@@ -123,7 +149,7 @@ drugs <- list(
   Total = copy(raw), 
   Fentanyl = raw[Fentanyl  == "Y"],
   Heroin = raw[Heroin  == "Y"],
-  "Hydro-codeine" = raw[`Hydro-codeine`  == "Y"],
+  Hydrocodone = raw[Hydrocodone  == "Y"],
   Methadone = raw[Methadone  == "Y"],
   Oxycodone = raw[Oxycodone  == "Y"],
   Oxymorphone = raw[Oxymorphone  == "Y"],
@@ -250,7 +276,7 @@ drug_data <- fips[drug_data]
 drug_data <- transform(drug_data, Age = factor(Age, levels = c("Under 21 years", "21 to 45 years", "46 to 60 years", "61 years and over", "Total"), ordered=TRUE),
                        Race = factor(Race, levels = c("White", "Black", "Other", "Total"), ordered=TRUE),
                        Ethnicity = factor(Ethnicity, levels = c("Not Hispanic", "Hispanic", "Total"), ordered=TRUE), 
-                       `Drug Type` = factor(`Drug Type`, levels = c("Total", "Fentanyl", "Heroin", "Hydro-codeine", "Methadone", 
+                       `Drug Type` = factor(`Drug Type`, levels = c("Total", "Fentanyl", "Heroin", "Hydrocodone", "Methadone", 
                                                                     "Oxycodone", "Oxymorphone", "Tramadol", "Amphetamine", 
                                                                     "Benzodiazepine", "Cocaine", "Ethanol", "Other"), ordered=TRUE)) 
 
@@ -262,7 +288,7 @@ drug_data <- drug_data %>%
 # Write to File
 write.table(
   drug_data,
-  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2012-2016.csv"),
+  file.path(getwd(), "data", "accidental-drug-related-deaths-by-individual-drugs-detected_2012-2017.csv"),
   sep = ",",
   row.names = F,
   na = "-9999"
